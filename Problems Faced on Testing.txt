@@ -1,0 +1,20 @@
+*************************Sensor unit PCB Not working*******************************
+
+Respected program uploaded in ATmega328 by keeping ic on arduino nano board. Everything working fine in arduino board (UART also). 
+After soldered into the PCB program not running icluding UART programing as well as data sharing through UART.
+Desoldered and uploaded blinking prgm. Sometimes not running sometimes program running few times then crashes. 
+First problem was crystall issue. Faulty crystall will make the microcontroller looks like dead.
+After that ISP programing was happening on PCB. But still UART not and program still crashing.
+After investingating findout after going sensor enable and tx enable pin high the mosfet is switching but the 10uF 
+filter capacitor taking spike of current due to that microcontroller getting restarted. After removing the capacitor
+everything working fine. UART, ISP, Program everything fine. 
+
+***************************************************************************************
+
+* Faulty crystall making everything dead making us to think that microcontroller is dead. Fist ensure crystall is working properly.
+* Due to powersupply issue including sudden current draw from microcontroller power supply making it restart. Making us to think that microcontroller is not stable or faulty. Ensure good powersupply and remove unwated capacitors
+  from frequenly switching on circuit parts. 
+* UART will fail if wrong or no bootloader. We can burn bootloader only via ISP programing.
+* using ISP burn bootloader and then try UART. If you burn some programs using ISP it will not contain bootloader. So program will run but UART not.
+* If you program using UART the bootloader also will burn along with it. But first time need to burn bootloader using ISP. Burn correct combination, means microcontroller.
+

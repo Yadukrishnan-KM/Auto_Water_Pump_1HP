@@ -1,0 +1,1 @@
+put smae 8 bit id using dip switch in the transmitter and receiver

@@ -1,0 +1,3 @@
+to create custom symbols for lcd
+
+https://maxpromer.github.io/LCD-Character-Creator/

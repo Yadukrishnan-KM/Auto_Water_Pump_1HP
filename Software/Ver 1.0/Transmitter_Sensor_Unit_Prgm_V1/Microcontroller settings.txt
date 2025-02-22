@@ -1,0 +1,3 @@
+minicore library
+atmega328p
+internal 8 mhz
