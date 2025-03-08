@@ -22,6 +22,8 @@ void setup()
 
 void loop()
 {
+  unsigned char data[4]={0};
+float distance = 0;
     do{
      for(int i=0;i<4;i++)
      {
@@ -48,6 +50,6 @@ void loop()
                Serial.println("Below the lower limit");
              }
       }else Serial.println("ERROR");
-     }
+     }else Serial.println("Sart byte ERROR");
      delay(100);
 }

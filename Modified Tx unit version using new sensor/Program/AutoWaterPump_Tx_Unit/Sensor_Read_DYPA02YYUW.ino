@@ -8,25 +8,6 @@ version V1.0
 Last modified  08/03/2025
 */
 
-#include <SoftwareSerial.h>
-#define ultrasonicechoPin 11
-#define ultrasonicTrigPin 10
-#define ultrasonicPwrPin 12
-float depthTolerance = 0.05;
-SoftwareSerial mySerial(ultrasonicechoPin,ultrasonicTrigPin); // RX, TX
-
-void setup(){
- Serial.begin(57600);
- mySerial.begin(9600); 
-}
-
-void loop(){
-
-  float measurement = ultrasonicRead();
-  Serial.print("measurement is :"); Serial.println(measurement);
-  delay(5000);
-}
-
 float ultrasonicRead() {
 
   // All the variables for this fuction
