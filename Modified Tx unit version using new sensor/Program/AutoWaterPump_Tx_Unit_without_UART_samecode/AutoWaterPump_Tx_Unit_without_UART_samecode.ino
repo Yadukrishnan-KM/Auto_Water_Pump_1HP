@@ -77,16 +77,16 @@ void setup() {
 
   previousMillisReset = millis();                                             // reset comaring millis value once in setup
 
-  Serial.begin(9600);
+  //Serial.begin(9600);
   mySerial.begin(9600);
-                                                                                                     Serial.println("starting");
+                                                                                                     //Serial.println("starting");
   initialSetup();
   EEPROM.get(0, minLevel); 
   EEPROM.get(4, maxLevel);
-                                                                                                     Serial.print("min value eeprom is   ");
-                                                                                                     Serial.println(minLevel);
-                                                                                                     Serial.print("max value eeprom is  ");
-                                                                                                     Serial.println(maxLevel);                                                                                             
+                                                                                                     //Serial.print("min value eeprom is   ");
+                                                                                                     //Serial.println(minLevel);
+                                                                                                     //Serial.print("max value eeprom is  ");
+                                                                                                     //Serial.println(maxLevel);                                                                                             
 }
 
 void loop() {
@@ -95,8 +95,8 @@ void loop() {
  finalDepth = ultrasonicRead();
  if((finalDepth >= (maxLevel - 10)) && (finalDepth <= (minLevel + 10))){
    wtrLvlPercent = constrain(map(round(finalDepth), round(minLevel), round(maxLevel), 1, 100),1 ,100);  // converting float to int also mapping to 1-100% also adding constains to avoid wrong values
-                                                                                                     Serial.print("percentage is : ");
-                                                                                                     Serial.println(wtrLvlPercent);
+                                                                                                     //Serial.print("percentage is : ");
+                                                                                                     //Serial.println(wtrLvlPercent);
   if(wtrLvlPercent <= 12){                                                                                           
    d[3] = 0;d[2] = 0; d[1] = 0; d[0] = 1;
  }
@@ -130,21 +130,21 @@ void loop() {
  rfTransmission();
  delay(800);
  d[3] = 0;d[2] = 0; d[1] = 0; d[0] = 0;
-                                                                         Serial.println("Sensor value True");
+                                                                         //Serial.println("Sensor value True");
  rfTransmission();
  delay(800);
  }
  else {
    d[3] = 1;d[2] = 1; d[1] = 1; d[0] = 1;
-                                                                           Serial.println("Sensor value error");
+                                                                           //Serial.println("Sensor value error");
    rfTransmission();
    delay(800);
  }
 
  if(prgmCounter == 2){
     int batV = readVcc();                                               // reading battery voltage in mV
-                                                                        Serial.print("Battery voltage is : ");
-                                                                        Serial.println(batV);
+                                                                        //Serial.print("Battery voltage is : ");
+                                                                        //Serial.println(batV);
    if (batV <= 3400){                                                   // low battery if less than 3.4v
      d[3] = 1;d[2] = 1; d[1] = 0; d[0] = 0;
     }
@@ -156,8 +156,8 @@ void loop() {
    delay(800);
 
    int chargingVD = analogRead(solarChargePin);                           // reading charging condition input voltage in digital 0-1023
-                                                                          Serial.print("charging detection pin voltage in digital 0-1023 is : ");
-                                                                          Serial.println(chargingVD);
+                                                                          //Serial.print("charging detection pin voltage in digital 0-1023 is : ");
+                                                                          //Serial.println(chargingVD);
    if(chargingVD <= 512){                                                 // less than half, charging else not
      d[3] = 1;d[2] = 1; d[1] = 1; d[0] = 0;
     }
@@ -171,18 +171,18 @@ void loop() {
     prgmCounter = 0;
  }
  else prgmCounter++;
-                                                                           Serial.print("prgm counter value is : ");
-                                                                           Serial.println(prgmCounter);
+                                                                           //Serial.print("prgm counter value is : ");
+                                                                           //Serial.println(prgmCounter);
  if((wtrLvlPercent >= 15) && (wtrLvlPercent <= 85)) sleepPeriod = 3;
  else if((wtrLvlPercent >= 10) && (wtrLvlPercent <= 92)) sleepPeriod = 1;
  else sleepPeriod = 0;
  for(int i = 0; i <= sleepPeriod; i++){
-                                                                           Serial.println("going for sleep");
+                                                                          // Serial.println("going for sleep");
    delay(100);
   //LowPower.idle(SLEEP_8S, ADC_OFF, TIMER2_OFF, TIMER1_OFF, TIMER0_OFF, SPI_OFF, USART0_OFF, TWI_OFF);
   LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_ON);                      // consuming less power compared to .idle
  }
-                                                                           Serial.println("waked up");
+                                                                          // Serial.println("waked up");
  reset();                                                              // checking timeout for reset
 
 }
